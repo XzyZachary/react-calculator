@@ -1,63 +1,32 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Node.js CI
-
+# name: Dependabot post-update
+name: Build detection
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
-  build:
-
+  post-update:
+    # if: ${{ github.actor == 'dependabot[bot]' }}
     runs-on: ubuntu-latest
-
     steps:
-    - name: Install pnpm
-      uses: pnpm/action-setup@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Install Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version-file: .node-version
-        cache: 'pnpm'
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
 
-    - name: Get pnpm store directory
-      shell: bash
-      run: |
-        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-  
-    - uses: actions/cache@v4
-      name: Setup pnpm cache
-      if: ${{ github.ref_name == 'main' }}
-      with:
-        path: ${{ env.STORE_PATH }}
-        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          ${{ runner.os }}-pnpm-store-
-  
-    - uses: actions/cache/restore@v4
-      if: ${{ github.ref_name != 'main' }}
-      with:
-        path: ${{ env.STORE_PATH }}
-        key: |
-          ${{ runner.os }}-pnpm-store-
-  
-    - name: Install dependencies
-      shell: bash
-      run: pnpm install --frozen-lockfile
-     
-    - name: Build
-      shell: bash
-      run: pnpm run build
+      - name: Build
+        run: pnpm run build
 
-    - name: Deploy
-      # 別人的actions拿來借用
-      uses: JamesIves/github-pages-deploy-action@releases/v4
-      with:
-        BRANCH: gh-pages # deploy 到 gh-pages 這個分支
-        FOLDER: "dist" # build 後的資料夾
-        clean: false  # do not remove other files (including whole doc versions)
-        single-commit: true
+      - name: Deploy
+        # 別人的actions拿來借用
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        with:
+          access_token: ${{ secrets.ACCESS_TOKEN }} # Settings > Secret 建立的 ACCESS_TOKEN，推同個 repo 的話可以不需要
+          BRANCH: gh-pages # deploy 到 gh-pages 這個分支
+          FOLDER: "dist" # build 後的資料夾
+          clean: false  # do not remove other files (including whole doc versions)
+          single-commit: true
+
