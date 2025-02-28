@@ -18,7 +18,7 @@ jobs:
         uses: ./.github/actions/setup-node
 
       - name: Build
-        run: pnpm run build
+        run: npm run build
 
       - name: Deploy
         # 別人的actions拿來借用
