@@ -1,0 +1,26 @@
+// Variables
+$primary-color: #282c34;
+$text-color: #ffffff;
+
+.app {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  
+  .app-header {
+    background-color: $primary-color;
+    padding: 1rem;
+    color: $text-color;
+    
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+  }
+
+  main {
+    flex: 1;
+    padding: 2rem;
+  }
+} 
