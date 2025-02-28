@@ -40,6 +40,9 @@ jobs:
           path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          FOLDER: "build" # build 後的資料夾
+          branch: gh-pages  # 部署的目标分支
+          folder: build  # React构建产物的目录
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub自动生成的Token，用于认证
