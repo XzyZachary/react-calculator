@@ -24,6 +24,7 @@ jobs:
         # 別人的actions拿來借用
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
+          access_token: ${{ secrets.ACCESS_TOKEN }} # Settings > Secret 建立的 ACCESS_TOKEN，推同個 repo 的話可以不需要
           BRANCH: gh-pages # deploy 到 gh-pages 這個分支
           FOLDER: "build" # build 後的資料夾
           clean: false  # do not remove other files (including whole doc versions)
