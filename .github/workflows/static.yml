@@ -40,7 +40,7 @@ jobs:
 
       # 部署到GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages  # 部署的目标分支
