@@ -5,6 +5,7 @@ permissions:
   checks: write        # Necessary to write reports
   pull-requests: write # Necessary to comment on PRs
   contents: read
+  id-token: write
   packages: write
 
 on:
