@@ -34,6 +34,6 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@releases/v4
       with:
         BRANCH: gh-pages # deploy 到 gh-pages 這個分支
-        FOLDER: "build" # build 後的資料夾
+        FOLDER: "dist" # build 後的資料夾
         clean: false  # do not remove other files (including whole doc versions)
         single-commit: true
