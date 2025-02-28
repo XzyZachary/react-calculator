@@ -138,7 +138,7 @@ const Calculator: React.FC<IProps> = ({ ESCClick, onOk, value }) => {
     try {
       if (!fullText) return '';
       let _fullText = fullText;
-      const regex = new RegExp(/[+\-\/\*\(\.\÷]$/);
+      const regex = new RegExp(/[+\-/*(.÷]$/);
       while (regex.test(_fullText)) {
         _fullText = _fullText?.replace(regex, '');
       }
@@ -155,6 +155,7 @@ const Calculator: React.FC<IProps> = ({ ESCClick, onOk, value }) => {
   /**
    * 处理等号按钮点击，计算最终结果
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const equalClick = useCallback(() => {
     try {
       let finalResult = parseCalculate(fullText);
