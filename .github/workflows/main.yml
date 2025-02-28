@@ -48,6 +48,10 @@ jobs:
     - name: Install dependencies
       shell: bash
       run: pnpm install --frozen-lockfile
+     
+    - name: Build
+      shell: bash
+      run: pnpm run build
 
     - name: Deploy
       # 別人的actions拿來借用
