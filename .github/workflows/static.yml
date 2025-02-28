@@ -1,5 +1,12 @@
 name: Deploy React App
 
+permissions:
+  actions: write       # Necessary to cancel workflow executions
+  checks: write        # Necessary to write reports
+  pull-requests: write # Necessary to comment on PRs
+  contents: read
+  packages: write
+
 on:
   push:
     branches:
@@ -35,6 +42,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages  # 部署的目标分支
           folder: build  # React构建产物的目录
         env:
