@@ -138,7 +138,10 @@ const Calculator: React.FC<IProps> = ({ ESCClick, onOk, value }) => {
     try {
       if (!fullText) return '';
       let _fullText = fullText;
-      const regex = new RegExp(/[+\-/*(.÷]$/);
+      // const regex = new RegExp(/[+\-\/\*\(\.\÷]$/);
+      // 在项目中运用build后会被编译成/[+\-\/\*\(\.\\xf7]$/， 会导致输入数字7被截断
+      // const regex = new RegExp(/[+\-\/\*\(\.\u00F7]$/);
+      const regex = new RegExp(/[+\-/*(.\u00F7]$/);
       while (regex.test(_fullText)) {
         _fullText = _fullText?.replace(regex, '');
       }
